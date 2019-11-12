@@ -14,11 +14,11 @@ public class Screenshot {
 
         Thread.sleep(10000);
 
-        InputStream inputStream = process.getInputStream();
-        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        if (reader.readLine() != null) {
-            reader.close();
-            process.destroy();
+        try (InputStream inputStream = process.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+            if (reader.readLine() != null) {
+                process.destroy();
+            }
         }
     }
 }
